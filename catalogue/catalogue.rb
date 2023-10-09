@@ -1,3 +1,5 @@
+require 'date'
+
 class Catalogue
   attr_accessor :id, :genre, :author, :source, :label, :publish_date
   attr_reader :archived
