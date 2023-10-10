@@ -5,7 +5,7 @@ class Music < Catalogue
   attr_reader :id, :on_spotify
 
   def initialize(publish_date, on_spotify)
-    super(publish_date)
+    super(publish_date, archived)
     @id = Random.rand(1...100)
     @on_spotify = on_spotify
   end

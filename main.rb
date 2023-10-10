@@ -1,7 +1,10 @@
+require_relative 'lib/app_data'
 require_relative 'lib/app'
 
-def main()
-  puts 'Welcome to the School Library App!'
+inf = Mainclass.new
+
+def main(inf)
+  puts 'Welcome to the Catalog of my things App!'
   loop do
     puts ''
     ACTIONS.each_pair do |action_id, action|
@@ -10,9 +13,9 @@ def main()
 
     chosen_id = gets.chomp
 
-    ACTIONS[chosen_id][:handler].call
+    ACTIONS[chosen_id][:handler].call(inf)
     break if chosen_id == '0'
   end
 end
 
-main
+main(inf)
