@@ -5,7 +5,7 @@ class Catalogue
   attr_reader :archived
 
   def initialize(publish_date, archived)
-    @id = Random.rand(1..10_000)
+    @id = Random.rand(1..100)
     @publish_date = publish_date || Date.today
     @archived = archived
     @genre = nil
