@@ -12,5 +12,7 @@ class Book < Catalogue
     @cover_state = cover_state
   end
 
-  def can_be_archived; end
+  def can_be_archived?
+    (Date.today.year - @publish_date.year) >= 10
+  end
 end
