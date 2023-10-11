@@ -1,22 +1,26 @@
 [
   {
-    "id": 29,
-    "publish_date": "2023-08-10",
-    "on_spotify": "Y"
+    "id": 69,
+    "publish_date": "2023-10-11",
+    "on_spotify": "Y",
+    "archived": "Y"
   },
   {
-    "id": 73,
-    "publish_date": "2023-04-10",
-    "on_spotify": "N"
+    "id": 62,
+    "publish_date": "2023-10-11",
+    "on_spotify": true,
+    "archived": true
   },
   {
-    "id": 19,
-    "publish_date": "2024-10-20",
-    "on_spotify": "Y"
+    "id": 68,
+    "publish_date": "2022-10-11",
+    "on_spotify": true,
+    "archived": false
   },
   {
-    "id": 89,
-    "publish_date": "2023-02-12",
-    "on_spotify": "N"
+    "id": 75,
+    "publish_date": "2023-10-11",
+    "on_spotify": true,
+    "archived": false
   }
 ]
