@@ -57,7 +57,8 @@ class Mainclass
         Publish Date: #{song.publish_date},
         On Spotify: #{song.on_spotify},
         Archived: #{song.archived},
-        Genre: #{song.genre}"
+        Genre: #{song.genre}
+        "
       end
     end
   end
@@ -89,7 +90,7 @@ class Mainclass
 
   def create_music(publish_date, on_spotify, archived, _genre_name = 'true')
     load_music
-    new_gen = @new_arr
+    new_gen = @add_genre
     music = Music.new(publish_date, on_spotify, archived)
     @music << music
     existing_songs = []

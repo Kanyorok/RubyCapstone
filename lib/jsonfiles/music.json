@@ -19,5 +19,19 @@
     "on_spotify": true,
     "archived": true,
     "genre": "pop"
+  },
+  {
+    "id": 16,
+    "publish_date": "2022-10-09",
+    "on_spotify": true,
+    "archived": false,
+    "genre": null
+  },
+  {
+    "id": 89,
+    "publish_date": "2022-10-11",
+    "on_spotify": true,
+    "archived": true,
+    "genre": "Rock"
   }
 ]
