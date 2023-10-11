@@ -6,16 +6,32 @@ class Mainclass
   def initialize
     load_music
     load_genres
-    @new_arr = []
+    @add_genre = []
   end
 
   def load_music
     @music = []
-    return unless File.file?('./lib/jsonfiles/music.json') && !File.empty?('./lib/jsonfiles/music.json')
 
-    song_data = JSON.parse(File.read('./lib/jsonfiles/music.json'))
-    song_data.each do |song_info|
-      @music << Music.new(song_info['publish_date'], song_info['on_spotify'], song_info['archived'])
+    # Check if the JSON file exists and is not empty
+    json_file_path = './lib/jsonfiles/music.json'
+    return unless File.file?(json_file_path) && !File.empty?(json_file_path)
+
+    begin
+      song_data = JSON.parse(File.read(json_file_path))
+
+      song_data.each do |song_info|
+        music_record = Music.new(
+          song_info['publish_date'],
+          song_info['on_spotify'],
+          song_info['archived']
+        )
+        music_record.genre = song_info['genre']
+
+        @music << music_record
+      end
+    rescue JSON::ParserError => e
+      # Handle JSON parsing errors (e.g., invalid JSON format)
+      puts "Error parsing JSON: #{e}"
     end
   end
 
@@ -35,8 +51,13 @@ class Mainclass
       puts 'No new music recorded'
     else
       @music.each_with_index do |song, index|
-        puts "#{index} ID: #{song.id}, Publish Date: #{song.publish_date},
-        On Spotify: #{song.on_spotify}, Archived: #{song.archived}"
+        puts "
+        #{index})
+        ID: #{song.id},
+        Publish Date: #{song.publish_date},
+        On Spotify: #{song.on_spotify},
+        Archived: #{song.archived},
+        Genre: #{song.genre}"
       end
     end
   end
@@ -63,10 +84,10 @@ class Mainclass
     existing_genres << { id: genre.id, name: genre.name }
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/genres.json', JSON.pretty_generate(existing_genres))
-    @new_arr = genre.name
+    @add_genre = genre.name
   end
 
-  def create_music(publish_date, on_spotify, archived)
+  def create_music(publish_date, on_spotify, archived, _genre_name = 'true')
     load_music
     new_gen = @new_arr
     music = Music.new(publish_date, on_spotify, archived)

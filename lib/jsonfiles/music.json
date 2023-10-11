@@ -5,5 +5,19 @@
     "on_spotify": true,
     "archived": false,
     "genre": "hip-hop"
+  },
+  {
+    "id": 46,
+    "publish_date": "2023-05-06",
+    "on_spotify": false,
+    "archived": true,
+    "genre": "RnB"
+  },
+  {
+    "id": 65,
+    "publish_date": "2021-12-10",
+    "on_spotify": true,
+    "archived": true,
+    "genre": "pop"
   }
 ]

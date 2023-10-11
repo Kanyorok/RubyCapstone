@@ -2,5 +2,13 @@
   {
     "id": 25,
     "name": "hip-hop"
+  },
+  {
+    "id": 39,
+    "name": "RnB"
+  },
+  {
+    "id": 60,
+    "name": "pop"
   }
 ]
