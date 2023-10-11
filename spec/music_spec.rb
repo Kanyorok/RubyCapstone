@@ -4,7 +4,7 @@ describe Music do
   let(:publish_date) { Date.new(2010, 1, 1) } 
   let(:on_spotify) { true } 
   let(:archived) { false } 
-  # Use a subject for convenience
+  
   subject { described_class.new(publish_date, on_spotify, archived) }
 
   describe '#initialize' do
