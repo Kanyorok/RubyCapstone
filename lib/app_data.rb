@@ -6,6 +6,7 @@ class Mainclass
   def initialize
     load_music
     load_genres
+    @new_arr = []
   end
 
   def load_music
@@ -51,26 +52,32 @@ class Mainclass
     end
   end
 
-  def create_music(publish_date, on_spotify, archived)
-    load_music
-    music = Music.new(publish_date, on_spotify, archived)
-    @music << music
-    existing_songs = []
-    existing_songs = JSON.parse(File.read('./lib/jsonfiles/music.json')) if File.file?('./lib/jsonfiles/music.json')
-    existing_songs << { id: music.id, publish_date: music.publish_date, on_spotify: music.on_spotify,
-                        archived: music.archived }
-    # Write the combined data back to the file
-    File.write('./lib/jsonfiles/music.json', JSON.pretty_generate(existing_songs))
-  end
-
   def create_genre(name)
     load_genres
     genre = Genre.new(name)
     @genre << genre
     existing_genres = []
-    existing_genres = JSON.parse(File.read('./lib/jsonfiles/genres.json')) if File.file?('./lib/jsonfiles/genres.json')
+    if File.file?('./lib/jsonfiles/genres.json') && !File.empty?('./lib/jsonfiles/genres.json')
+      existing_genres = JSON.parse(File.read('./lib/jsonfiles/genres.json'))
+    end
     existing_genres << { id: genre.id, name: genre.name }
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/genres.json', JSON.pretty_generate(existing_genres))
+    @new_arr = genre.name
+  end
+
+  def create_music(publish_date, on_spotify, archived)
+    load_music
+    new_gen = @new_arr
+    music = Music.new(publish_date, on_spotify, archived)
+    @music << music
+    existing_songs = []
+    if File.file?('./lib/jsonfiles/music.json') && !File.empty?('./lib/jsonfiles/music.json')
+      existing_songs = JSON.parse(File.read('./lib/jsonfiles/music.json'))
+    end
+    existing_songs << { id: music.id, publish_date: music.publish_date, on_spotify: music.on_spotify,
+                        archived: music.archived, genre: new_gen }
+    # Write the combined data back to the file
+    File.write('./lib/jsonfiles/music.json', JSON.pretty_generate(existing_songs))
   end
 end
