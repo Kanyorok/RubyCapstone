@@ -13,6 +13,8 @@ class Book < Catalogue
   end
 
   def can_be_archived?
-    (Date.today.year - @publish_date.year) >= 10
+    return true if super || @cover_state == 'bad'
+
+    false
   end
 end
