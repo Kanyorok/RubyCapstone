@@ -1,10 +1,10 @@
 require_relative 'spec_helper'
 
 describe Music do
-  let(:publish_date) { Date.new(2010, 1, 1) } 
-  let(:on_spotify) { true } 
-  let(:archived) { false } 
-  
+  let(:publish_date) { Date.new(2010, 1, 1) }
+  let(:on_spotify) { true }
+  let(:archived) { false }
+
   subject { described_class.new(publish_date, on_spotify, archived) }
 
   describe '#initialize' do
@@ -33,7 +33,7 @@ describe Music do
     end
 
     it 'returns false if publish_date is not over 10 years ago' do
-      recent_publish_date = Date.new(2022, 1, 1) 
+      recent_publish_date = Date.new(2022, 1, 1)
       recent_music = described_class.new(recent_publish_date, on_spotify, archived)
       expect(recent_music.can_be_archived?).to eq(false)
     end

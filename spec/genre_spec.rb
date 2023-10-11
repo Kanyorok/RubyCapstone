@@ -29,7 +29,7 @@ describe Genre do
     end
 
     it 'sets the genre attribute of the added item to self' do
-      item = Catalogue.new('2023-01-01', false) 
+      item = Catalogue.new('2023-01-01', false)
       subject.add_item(item)
 
       expect(item.genre).to eq(subject)
