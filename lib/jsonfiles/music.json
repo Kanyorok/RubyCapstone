@@ -22,5 +22,11 @@
     "publish_date": "2023-10-11",
     "on_spotify": true,
     "archived": false
+  },
+  {
+    "id": 47,
+    "publish_date": "2021-10-11",
+    "on_spotify": false,
+    "archived": true
   }
 ]
