@@ -1,5 +1,5 @@
-require_relative './music/music'
-require_relative './music/genre'
+require_relative 'music/music'
+require_relative 'music/genre'
 require 'json'
 
 class Mainclass
@@ -34,7 +34,8 @@ class Mainclass
       puts 'No new music recorded'
     else
       @music.each_with_index do |song, index|
-        puts "#{index} ID: #{song.id}, Publish Date: #{song.publish_date}, On Spotify: #{song.on_spotify}, Archived: #{song.archived}"
+        puts "#{index} ID: #{song.id}, Publish Date: #{song.publish_date},
+        On Spotify: #{song.on_spotify}, Archived: #{song.archived}"
       end
     end
   end
@@ -56,7 +57,8 @@ class Mainclass
     @music << music
     existing_songs = []
     existing_songs = JSON.parse(File.read('./lib/jsonfiles/music.json')) if File.file?('./lib/jsonfiles/music.json')
-    existing_songs << { id:music.id, publish_date: music.publish_date, on_spotify: music.on_spotify, archived: music.archived }
+    existing_songs << { id: music.id, publish_date: music.publish_date, on_spotify: music.on_spotify,
+                        archived: music.archived }
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/music.json', JSON.pretty_generate(existing_songs))
   end
@@ -67,7 +69,7 @@ class Mainclass
     @genre << genre
     existing_genres = []
     existing_genres = JSON.parse(File.read('./lib/jsonfiles/genres.json')) if File.file?('./lib/jsonfiles/genres.json')
-    existing_genres << { id:genre.id, name: genre.name }
+    existing_genres << { id: genre.id, name: genre.name }
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/genres.json', JSON.pretty_generate(existing_genres))
   end

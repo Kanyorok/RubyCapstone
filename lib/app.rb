@@ -1,7 +1,7 @@
-require_relative './app_data'
+require_relative 'app_data'
 require 'date'
 
-inf = Mainclass.new
+Mainclass.new
 
 def created_music(inf)
   print 'Publish Date: '
@@ -19,11 +19,11 @@ def created_music(inf)
 
   print 'On Spotify (Y/N): '
   on_spotify_input = gets.chomp.upcase
-  on_spotify = on_spotify_input == 'Y' ? true : false
+  on_spotify = on_spotify_input == 'Y'
 
   print 'Archived (Y/N): '
   archived_input = gets.chomp.upcase
-  archived = archived_input == 'Y' ? true : false
+  archived = archived_input == 'Y'
 
   created_genre(inf)
 
@@ -65,7 +65,7 @@ ACTIONS = {
   },
   '2' => {
     prompt: 'Create a music album',
-		handler: method(:created_music)
+    handler: method(:created_music)
   },
   '3' => {
     prompt: 'Create a game'
