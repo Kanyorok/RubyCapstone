@@ -13,7 +13,6 @@ class Mainclass
     @add_label = []
   end
 
-
   def load_label
     @label = []
     return unless File.file?('./lib/jsonfiles/genres.json') && !File.empty?('./lib/jsonfiles/genres.json')
@@ -31,7 +30,7 @@ class Mainclass
 
     begin
       book_data = JSON.parse(File.read(json_file_path))
-      
+
       book_data.each do |book_info|
         book_record = Book.new(
           book_info['publisher'],
@@ -91,7 +90,6 @@ class Mainclass
     end
   end
 
-
   def create_label(title, color)
     load_label
     label = Label.new(title, color)
@@ -128,7 +126,7 @@ class Mainclass
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/genres.json', JSON.pretty_generate(existing_genres))
   end
-  
+
   def create_book(publisher, cover_state, publish_date, archived)
     load_book
     new_label = @add_label
@@ -138,10 +136,9 @@ class Mainclass
     if File.file?('./lib/jsonfiles/books.json') && !File.empty?('./lib/jsonfiles/books.json')
       existing_books = JSON.parse(File.read('./lib/jsonfiles/books.json'))
     end
-    existing_books << { id: bookdata.id, publisher: bookdata.publisher, cover_state: bookdata.cover_state, publish_date: bookdata.publish_date,
-                        archived: bookdata.archived, label: new_label }
+    existing_books << { id: bookdata.id, publisher: bookdata.publisher, cover_state: bookdata.cover_state,
+                        publish_date: bookdata.publish_date, archived: bookdata.archived, label: new_label }
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/books.json', JSON.pretty_generate(existing_books))
   end
 end
-

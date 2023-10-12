@@ -12,7 +12,7 @@ def created_label(inf)
 
   print 'Label Title: '
   label_title = gets.chomp
-  
+
   print 'Label Color: '
   label_color = gets.chomp
 
@@ -28,13 +28,13 @@ def created_book(inf)
 
   print 'Publish Date: '
   pdate = gets.chomp.upcase
-  
+
   date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
   until pdate.match?(date_pattern)
     puts "\nPlease enter the date in the format: YYYY/MM/DD"
     pdate = gets.chomp
   end
-  
+
   # parse publish_date into Date object
   publish_date = Date.parse(pdate)
 
