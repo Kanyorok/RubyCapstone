@@ -8,6 +8,31 @@ class Mainclass
   def initialize
     load_music
     load_genres
+    load_book
+  end
+
+  def load_book
+    @books = []
+    json_file_path = './lib/jsonfiles/books.json'
+    return unless File.file?(json_file_path) && !File.empty?(json_file_path)
+
+    begin
+      book_data = JSON.parse(File.read(json_file_path))
+      
+      book_data.each do |book_info|
+        book_record = Book.new(
+          book_info['publisher'],
+          book_info['cover_state'],
+          book_info['publish_date'],
+          book_info['archived']
+        )
+
+        @books << book_record
+      end
+    rescue JSON::ParserError => e
+      # Handle JSON parsing errors (e.g., invalid JSON format)
+      puts "Error parsing JSON: #{e}"
+    end
   end
 
   def load_music
@@ -75,81 +100,19 @@ class Mainclass
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/genres.json', JSON.pretty_generate(existing_genres))
   end
-end
-
-
-class Mainclass
-  def initialize
-  load_book
-  load_label
- end
- 
- def load_book
-  @book = []
-  return unless File.file?('./lib/jsonfiles/books.json') && !File.empty?('./lib/jsonfiles/books.json')
   
-  title_data = JSON.parse(File.read('./lib/jsonfiles/books.json'))
-  title_data.each do |title_info|
-    @book << Book.new(title_info['publish_date'],  title_info['archived'])
-  end
-  
- end
-
-   def load_label
-    @label = []
-    return unless File.file?('./lib/jsonfiles/label.json') && !File.empty?('./lib/jsonfiles/labels.json')
-
-    title_data = JSON.parse(File.read('./lib/jsonfiles/label.json'))
-    title_data.each do |title_info|
-      @label << Label.new(title_info['name'])
-    end
-  end
-
-  def list_book
+  def create_book(publisher, cover_state, publish_date, archived)
     load_book
-    if @book.empty?
-      puts 'No new book recorded'
-    else
-      @book.each_with_index do |book, index|
-        puts "#{index} ID: #{book.id}, Publish Date: #{book.publish_date}, color: #{book.color}
-         Archived: #{book.archived}"
-      end
+    bookdata = Book.new(publisher, cover_state, publish_date, archived)
+    @books << bookdata
+    existing_books = []
+    if File.file?('./lib/jsonfiles/books.json') && !File.empty?('./lib/jsonfiles/books.json')
+      existing_books = JSON.parse(File.read('./lib/jsonfiles/books.json'))
     end
-  end
-
-
-def create_book(publish_date, archived)
-    load_book
-    music = Book.new(publish_date, archived)
-    @book << book
-    existing_title = []
-    existing_title = JSON.parse(File.read('./lib/jsonfiles/books.json')) if File.file?('./lib/jsonfiles/books.json')
-    existing_titles << { id: book.id, publish_date: book.publish_date, 
-                        archived: book.archived }
+    existing_books << { id: bookdata.id, publisher: bookdata.publisher, cover_state: bookdata.cover_state, publish_date: bookdata.publish_date,
+                        archived: bookdata.archived }
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/books.json', JSON.pretty_generate(existing_books))
   end
-
-
-  def list_labels
-    load_labels
-    if @label.empty?
-      puts 'No labels recorded'
-    else
-      @label.each_with_index do |book, index|
-        puts "#{index}) ID: #{title.id}, Labels title: #{book.title}"
-      end
-    end
-  end
-
-  def create_label(title)
-    load_label
-    label = Label.new(name)
-    @label << label
-    existing_label = []
-    existing_label = JSON.parse(File.read('./lib/jsonfiles/genres.json')) if File.file?('./lib/jsonfiles/genres.json')
-    existing_labelS << { id: label.id, title: label.title }
-    # Write the combined data back to the file
-    File.write('./lib/jsonfiles/labels.json', JSON.pretty_generate(existing_labels))
-  end
 end
+
