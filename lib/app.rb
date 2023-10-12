@@ -4,6 +4,21 @@ require 'date'
 Mainclass.new
 
 
+def created_label(inf)
+  print 'Do you want to add a a label to this book? (Y/N)'
+  want_label = gets.chomp.upcase
+
+  return unless want_label == 'Y'
+
+  print 'Label Title: '
+  label_title = gets.chomp
+  
+  print 'Label Color: '
+  label_color = gets.chomp
+
+  inf.create_label(label_title, label_color)
+end
+
 def created_book(inf)
   print 'Publisher: '
   pub = gets.chomp
@@ -27,6 +42,7 @@ def created_book(inf)
   archived_input = gets.chomp.upcase
   archived = archived_input == 'Y'
 
+  created_label(inf)
   inf.create_book(pub, covrstate, publish_date, archived)
   puts 'Book added successfully'
 end
