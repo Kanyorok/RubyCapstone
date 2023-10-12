@@ -3,6 +3,26 @@ require 'date'
 
 Mainclass.new
 
+def created_book(inf)
+  print 'Publish Date: '
+  pdate = gets.chomp.upcase
+  
+  date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
+  until pdate.match?(date_pattern)
+    puts "\nPlease enter the date in the format: YYYY/MM/DD"
+    pdate = gets.chomp
+  end
+  
+  # parse publish_date into Date object
+  publish_date = Date.parse(pdate)
+
+  print 'Archived (Y/N): '
+  archived_input = gets.chomp.upcase
+  archived = archived_input == 'Y'
+
+  inf.create_book(publish_date, archived)
+end
+
 def created_music(inf)
   print 'Publish Date: '
   publish_date = gets.chomp
@@ -61,7 +81,8 @@ end
 
 ACTIONS = {
   '1' => {
-    prompt: 'Create a book'
+    prompt: 'Create a book',
+    handler: method(:created_book)
   },
   '2' => {
     prompt: 'Create a music album',

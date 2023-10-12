@@ -2,11 +2,9 @@ require_relative '../catalogue/catalogue'
 
 class Book < Catalogue
   attr_reader :id
-
-  publisher :publisher
-  cover_state :cover_state
-  def initialize(publish_date, publisher)
-    super(publish_date)
+  attr_accessor :publisher, :cover_state
+  def initialize(publisher,cover_state,publish_date, archived)
+    super(publish_date, archived)
     @id = Random.rand(1...100)
     @publisher = publisher
     @cover_state = cover_state
@@ -17,4 +15,13 @@ class Book < Catalogue
 
     false
   end
+end
+
+def to_hash
+    item_hash = super
+    book_hash = {
+     'publisher' => @publisher,
+     'cover_state' => @cover_state
+    }
+item_hash.merge(book_hash)
 end
