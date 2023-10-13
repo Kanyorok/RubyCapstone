@@ -3,7 +3,6 @@ require 'date'
 
 Mainclass.new
 
-
 def created_label(inf)
   print 'Do you want to add a a label to this book? (Y/N)'
   want_label = gets.chomp.upcase
