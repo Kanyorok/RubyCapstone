@@ -1,10 +1,14 @@
 [
   {
-    "id": 58,
-    "name": "rnb"
+    "id": 25,
+    "name": "hip-hop"
   },
   {
-    "id": 38,
+    "id": 39,
+    "name": "RnB"
+  },
+  {
+    "id": 60,
     "name": "pop"
   },
   {

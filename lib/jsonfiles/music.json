@@ -1,27 +1,31 @@
 [
   {
-    "id": 69,
-    "publish_date": "2023-10-11",
-    "on_spotify": "Y",
-    "archived": "Y"
+    "id": 6,
+    "publish_date": "2021-10-11",
+    "on_spotify": true,
+    "archived": false,
+    "genre": "hip-hop"
   },
   {
-    "id": 62,
-    "publish_date": "2023-10-11",
-    "on_spotify": true,
-    "archived": true
+    "id": 46,
+    "publish_date": "2023-05-06",
+    "on_spotify": false,
+    "archived": true,
+    "genre": "RnB"
   },
   {
-    "id": 68,
-    "publish_date": "2022-10-11",
+    "id": 65,
+    "publish_date": "2021-12-10",
     "on_spotify": true,
-    "archived": false
+    "archived": true,
+    "genre": "pop"
   },
   {
-    "id": 75,
-    "publish_date": "2023-10-11",
+    "id": 16,
+    "publish_date": "2022-10-09",
     "on_spotify": true,
-    "archived": false
+    "archived": false,
+    "genre": null
   },
   {
     "id": 47,
