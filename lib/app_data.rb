@@ -15,11 +15,11 @@ class Mainclass
 
   def load_label
     @label = []
-    return unless File.file?('./lib/jsonfiles/genres.json') && !File.empty?('./lib/jsonfiles/genres.json')
+    return unless File.file?('./lib/jsonfiles/labels.json') && !File.empty?('./lib/jsonfiles/labels.json')
 
-    label_data = JSON.parse(File.read('./lib/jsonfiles/genres.json'))
+    label_data = JSON.parse(File.read('./lib/jsonfiles/labels.json'))
     label_data.each do |label_info|
-      @label << Label.new(label_info['title'], label_info['color'])
+      @label << Label.new(label_info['label'], label_info['color'])
     end
   end
 
@@ -38,7 +38,7 @@ class Mainclass
           book_info['publish_date'],
           book_info['archived']
         )
-        book_record.title = book_info['title']
+        book_record.label = book_info['label']
         @books << book_record
       end
     rescue JSON::ParserError => e
@@ -79,6 +79,18 @@ class Mainclass
     end
   end
 
+  def list_book
+    load_book
+    if @books.empty?
+      puts 'No new books recorded'
+    else
+      @books.each_with_index do |book, index|
+        puts "#{index} ID: #{book.id}, Publish Date: #{book.publish_date},
+        Publisher: #{book.publisher}, Label: #{book.label}"
+      end
+    end
+  end
+
   def list_genres
     load_genres
     if @genre.empty?
@@ -86,6 +98,17 @@ class Mainclass
     else
       @genre.each_with_index do |song, index|
         puts "#{index}) ID: #{song.id}, Genre Name: #{song.name}"
+      end
+    end
+  end
+
+  def list_labels
+    load_label
+    if @label.empty?
+      puts 'No label recorded'
+    else
+      @label.each_with_index do |labels, index|
+        puts "#{index}) ID: #{labels.id}, Label Name: #{labels.title}, Color Name: #{labels.color}"
       end
     end
   end

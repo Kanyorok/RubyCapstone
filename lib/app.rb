@@ -93,6 +93,18 @@ def list_music(inf)
   inf.list_music
 end
 
+def list_books(inf)
+  puts 'The books Data'
+  puts ''
+  inf.list_book
+end
+
+def list_labels(inf)
+  puts 'The labels Data'
+  puts ''
+  inf.list_labels
+end
+
 def list_genres(inf)
   puts 'The genre Data'
   puts ''
@@ -116,7 +128,8 @@ ACTIONS = {
     prompt: 'Create a game'
   },
   '4' => {
-    prompt: 'List all books'
+    prompt: 'List all books',
+    handler: method(:list_books)
   },
   '5' => {
     prompt: 'List all music album',
@@ -126,7 +139,8 @@ ACTIONS = {
     prompt: 'List all games'
   },
   '7' => {
-    prompt: 'List all labels'
+    prompt: 'List all labels',
+    handler: method(:list_labels)
   },
   '8' => {
     prompt: 'List all genres',
