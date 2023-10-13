@@ -1,13 +1,10 @@
 require_relative '../catalogue/catalogue'
 
 class Book < Catalogue
-  attr_reader :id
+  attr_accessor :publisher, :cover_state
 
-  publisher :publisher
-  cover_state :cover_state
-  def initialize(publish_date, publisher)
-    super(publish_date)
-    @id = Random.rand(1...100)
+  def initialize(publisher, cover_state, publish_date, archived)
+    super(publish_date, archived)
     @publisher = publisher
     @cover_state = cover_state
   end
