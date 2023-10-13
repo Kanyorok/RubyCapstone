@@ -149,18 +149,6 @@ class Mainclass
     @add_label = label.title
   end
 
-  def create_music(publish_date, on_spotify, archived)
-    load_music
-    music = Music.new(publish_date, on_spotify, archived)
-    @music << music
-    existing_songs = []
-    existing_songs = JSON.parse(File.read('./lib/jsonfiles/music.json')) if File.file?('./lib/jsonfiles/music.json')
-    existing_songs << { id: music.id, publish_date: music.publish_date, on_spotify: music.on_spotify,
-                        archived: music.archived }
-    # Write the combined data back to the file
-    File.write('./lib/jsonfiles/music.json', JSON.pretty_generate(existing_songs))
-  end
-
   def create_genre(name)
     load_genres
     genre = Genre.new(name)
@@ -175,7 +163,7 @@ class Mainclass
     @add_genre = genre.name
   end
 
-  def create_music(publish_date, on_spotify, archived, _genre_name = 'true')
+  def create_music(publish_date, on_spotify, archived)
     load_music
     new_gen = @add_genre
     music = Music.new(publish_date, on_spotify, archived)
