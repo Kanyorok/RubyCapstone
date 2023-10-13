@@ -2,6 +2,7 @@ require_relative 'music/music'
 require_relative 'music/genre'
 require_relative 'book/book'
 require_relative 'book/label'
+require_relative 'games/game'
 require 'json'
 
 class Mainclass
@@ -40,6 +41,31 @@ class Mainclass
         )
         book_record.label = book_info['label']
         @books << book_record
+      end
+    rescue JSON::ParserError => e
+      # Handle JSON parsing errors (e.g., invalid JSON format)
+      puts "Error parsing JSON: #{e}"
+    end
+  end
+
+  def load_game
+    @games = []
+    json_file_path = './lib/jsonfiles/games.json'
+    return unless File.file?(json_file_path) && !File.empty?(json_file_path)
+
+    begin
+      game_data = JSON.parse(File.read(json_file_path))
+
+      game_data.each do |game_info|
+        game_record = Game.new(
+          game_info['title'],
+          game_info['multiplayer'],
+          game_info['last_played_at'],
+          game_info['publish_date'],
+          game_info['archived']
+        )
+
+        @books << game_record
       end
     rescue JSON::ParserError => e
       # Handle JSON parsing errors (e.g., invalid JSON format)
@@ -191,5 +217,19 @@ class Mainclass
                         publish_date: bookdata.publish_date, archived: bookdata.archived, label: new_label }
     # Write the combined data back to the file
     File.write('./lib/jsonfiles/books.json', JSON.pretty_generate(existing_books))
+  end
+
+  def create_game(title, multiplayer, last_played_at, publish_date, archived)
+    load_game
+    gamedata = Game.new(title, multiplayer, last_played_at, publish_date, archived)
+    @games << gamedata
+    existing_games = []
+    if File.file?('./lib/jsonfiles/games.json') && !File.empty?('./lib/jsonfiles/games.json')
+      existing_games = JSON.parse(File.read('./lib/jsonfiles/games.json'))
+    end
+    existing_games << { id: gamedata.id, multiplayer: gamedata.multiplayer, last_played_at: gamedata.last_played_at,
+                        publish_date: gamedata.publish_date, archived: gamedata.archived }
+    # Write the combined data back to the file
+    File.write('./lib/jsonfiles/games.json', JSON.pretty_generate(existing_games))
   end
 end

@@ -74,8 +74,51 @@ def created_music(inf)
   puts 'Album created successfully'
 end
 
+def created_game(inf)
+  print 'Title: '
+  title = gets.chomp
+
+  print 'Is the game multiplayer? (yes/no): '
+  multiplayer_input = gets.chomp.downcase
+  multiplayer = multiplayer_input == 'yes'
+
+  print 'Last Played Date: '
+  play_date = gets.chomp
+
+  # Input validation
+  date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
+  until play_date.match?(date_pattern)
+    puts "\nPlease enter the date in the format: YYYY/MM/DD"
+    play_date = gets.chomp
+  end
+
+  # parse publish_date into Date object
+  last_played_at = Date.parse(play_date)
+
+
+  print 'Publish Date: '
+  publish_date = gets.chomp
+
+  # Input validation
+  date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
+  until publish_date.match?(date_pattern)
+    puts "\nPlease enter the date in the format: YYYY/MM/DD"
+    publish_date = gets.chomp
+  end
+
+  # parse publish_date into Date object
+  publish_date = Date.parse(publish_date)
+
+  print 'Archived (Y/N): '
+  archived_input = gets.chomp.upcase
+  archived = archived_input == 'Y'
+
+  inf.create_game(title, multiplayer, last_played_at, publish_date, archived)
+  puts 'Game created successfully'
+end
+
 def created_genre(inf)
-  print 'Do you want to add a genre to this book? (Y/N)'
+  print 'Do you want to add a genre to this song? (Y/N)'
   want_genre = gets.chomp.upcase
 
   return unless want_genre == 'Y'
@@ -124,7 +167,8 @@ ACTIONS = {
     handler: method(:created_music)
   },
   '3' => {
-    prompt: 'Create a game'
+    prompt: 'Create a game',
+    handler: method(:created_game)
   },
   '4' => {
     prompt: 'List all books',
