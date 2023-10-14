@@ -46,6 +46,21 @@ def created_book(inf)
   puts 'Book added successfully'
 end
 
+def created_author(inf)
+  print 'Do you want to add the author of the game? (Y/N)'
+  want_author = gets.chomp.upcase
+
+  return unless want_author == 'Y'
+
+  print 'First name: '
+  author_fname = gets.chomp
+
+  print 'Last name: '
+  author_lname = gets.chomp
+
+  inf.create_author(author_fname, author_lname)
+end
+
 def created_music(inf)
   print 'Publish Date: '
   publish_date = gets.chomp
@@ -75,46 +90,7 @@ def created_music(inf)
 end
 
 def created_game(inf)
-  print 'Title: '
-  title = gets.chomp
-
-  print 'Is the game multiplayer? (yes/no): '
-  multiplayer_input = gets.chomp.downcase
-  multiplayer = multiplayer_input == 'yes'
-
-  print 'Last Played Date: '
-  play_date = gets.chomp
-
-  # Input validation
-  date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
-  until play_date.match?(date_pattern)
-    puts "\nPlease enter the date in the format: YYYY/MM/DD"
-    play_date = gets.chomp
-  end
-
-  # parse publish_date into Date object
-  last_played_at = Date.parse(play_date)
-
-
-  print 'Publish Date: '
-  publish_date = gets.chomp
-
-  # Input validation
-  date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
-  until publish_date.match?(date_pattern)
-    puts "\nPlease enter the date in the format: YYYY/MM/DD"
-    publish_date = gets.chomp
-  end
-
-  # parse publish_date into Date object
-  publish_date = Date.parse(publish_date)
-
-  print 'Archived (Y/N): '
-  archived_input = gets.chomp.upcase
-  archived = archived_input == 'Y'
-
-  inf.create_game(title, multiplayer, last_played_at, publish_date, archived)
-  puts 'Game created successfully'
+  inf.add_game
 end
 
 def created_genre(inf)
@@ -135,6 +111,17 @@ def list_music(inf)
   inf.list_music
 end
 
+def list_authors(inf) 
+  inf.list_all_authors
+  puts ''
+end
+
+def list_games(inf)
+  puts 'The Games Data'
+  puts ''
+  inf.list_games
+end
+
 def list_books(inf)
   puts 'The books Data'
   puts ''
@@ -153,7 +140,9 @@ def list_genres(inf)
   inf.list_genres
 end
 
-def exit_message(_inf)
+def exit_message(inf)
+  inf.save_data
+  puts 'Saving Data...'
   puts 'Thank you for using our catalogue app!'
 end
 
@@ -179,7 +168,8 @@ ACTIONS = {
     handler: method(:list_music)
   },
   '6' => {
-    prompt: 'List all games'
+    prompt: 'List all games',
+    handler: method(:list_games)
   },
   '7' => {
     prompt: 'List all labels',
@@ -190,7 +180,8 @@ ACTIONS = {
     handler: method(:list_genres)
   },
   '9' => {
-    prompt: 'List all authors'
+    prompt: 'List all authors',
+    handler: method(:list_authors)
   },
   '0' => {
     prompt: 'Exit',

@@ -1,7 +1,7 @@
 require_relative '../catalogue/catalogue'
 
 class Game < Catalogue
-  attr_accessor :title, :multiplayer, :last_played_at, :id, :author
+    attr_accessor :title, :multiplayer, :last_played_at, :id, :author
 
   def initialize(title, multiplayer, last_played_at, publish_date, archived)
     super(publish_date, archived)
@@ -13,7 +13,6 @@ class Game < Catalogue
   end
 
   def can_be_archived?
-    # Check if the parent's method returns true and last_played_at is older than 2 years
-    super && (Time.now - @last_played_at) > 2 * 365 * 24 * 60 * 60
+    super && (Time.now - @last_played_at) >= 2 * 365 * 24 * 60 * 60
   end
 end

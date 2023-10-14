@@ -3,15 +3,35 @@ require_relative 'music/genre'
 require_relative 'book/book'
 require_relative 'book/label'
 require_relative 'games/game'
+require_relative 'games/author'
+require_relative 'modules/game_module'
+require_relative 'modules/author_module'
 require 'json'
 
 class Mainclass
+  include GameModule
+  include AuthorModule
+
   def initialize
     load_music
     load_genres
     load_book
     load_label
     @add_label = []
+    @author_info = []
+    @authors = []
+    @games = []
+    load_data
+  end
+
+  def load_data
+    @games = load_games
+    @authors = load_authors
+  end
+
+  def save_data
+    save_games
+    save_authors
   end
 
   def load_label
@@ -41,31 +61,6 @@ class Mainclass
         )
         book_record.label = book_info['label']
         @books << book_record
-      end
-    rescue JSON::ParserError => e
-      # Handle JSON parsing errors (e.g., invalid JSON format)
-      puts "Error parsing JSON: #{e}"
-    end
-  end
-
-  def load_game
-    @games = []
-    json_file_path = './lib/jsonfiles/games.json'
-    return unless File.file?(json_file_path) && !File.empty?(json_file_path)
-
-    begin
-      game_data = JSON.parse(File.read(json_file_path))
-
-      game_data.each do |game_info|
-        game_record = Game.new(
-          game_info['title'],
-          game_info['multiplayer'],
-          game_info['last_played_at'],
-          game_info['publish_date'],
-          game_info['archived']
-        )
-
-        @books << game_record
       end
     rescue JSON::ParserError => e
       # Handle JSON parsing errors (e.g., invalid JSON format)
@@ -106,6 +101,21 @@ class Mainclass
     song_data = JSON.parse(File.read('./lib/jsonfiles/genres.json'))
     song_data.each do |song_info|
       @genre << Genre.new(song_info['name'])
+    end
+  end
+
+  def list_games
+    if @games.empty?
+      puts 'No new games recorded'
+    else
+      @games.each_with_index do |game, index|
+        puts "#{index})
+        Title: #{game.title},
+        Multiplayer: #{game.multiplayer},
+        Last Played: #{game.last_played_at},
+        Publish Date: #{game.publish_date},
+        Archived: #{game.archived}"
+      end
     end
   end
 
@@ -171,7 +181,7 @@ class Mainclass
     end
     existing_labels << { id: label.id, label: label.title, color: label.color }
     # Write the combined data back to the file
-    File.write('./lib/jsonfiles/labels.json', JSON.pretty_generate(existing_labels))
+    #File.write('./lib/jsonfiles/labels.json', JSON.pretty_generate(existing_labels))
     @add_label = label.title
   end
 
@@ -185,7 +195,7 @@ class Mainclass
     end
     existing_genres << { id: genre.id, name: genre.name }
     # Write the combined data back to the file
-    File.write('./lib/jsonfiles/genres.json', JSON.pretty_generate(existing_genres))
+    #File.write('./lib/jsonfiles/genres.json', JSON.pretty_generate(existing_genres))
     @add_genre = genre.name
   end
 
@@ -201,7 +211,7 @@ class Mainclass
     existing_songs << { id: music.id, publish_date: music.publish_date, on_spotify: music.on_spotify,
                         archived: music.archived, genre: new_gen }
     # Write the combined data back to the file
-    File.write('./lib/jsonfiles/music.json', JSON.pretty_generate(existing_songs))
+    #File.write('./lib/jsonfiles/music.json', JSON.pretty_generate(existing_songs))
   end
 
   def create_book(publisher, cover_state, publish_date, archived)
@@ -216,20 +226,6 @@ class Mainclass
     existing_books << { id: bookdata.id, publisher: bookdata.publisher, cover_state: bookdata.cover_state,
                         publish_date: bookdata.publish_date, archived: bookdata.archived, label: new_label }
     # Write the combined data back to the file
-    File.write('./lib/jsonfiles/books.json', JSON.pretty_generate(existing_books))
-  end
-
-  def create_game(title, multiplayer, last_played_at, publish_date, archived)
-    load_game
-    gamedata = Game.new(title, multiplayer, last_played_at, publish_date, archived)
-    @games << gamedata
-    existing_games = []
-    if File.file?('./lib/jsonfiles/games.json') && !File.empty?('./lib/jsonfiles/games.json')
-      existing_games = JSON.parse(File.read('./lib/jsonfiles/games.json'))
-    end
-    existing_games << { id: gamedata.id, multiplayer: gamedata.multiplayer, last_played_at: gamedata.last_played_at,
-                        publish_date: gamedata.publish_date, archived: gamedata.archived }
-    # Write the combined data back to the file
-    File.write('./lib/jsonfiles/games.json', JSON.pretty_generate(existing_games))
+    #File.write('./lib/jsonfiles/books.json', JSON.pretty_generate(existing_books))
   end
 end
