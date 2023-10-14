@@ -24,7 +24,6 @@ module GameModule
     # parse publish_date into Date object
     last_played_at = Date.parse(play_date)
 
-
     print 'Publish Date: '
     publish_date = gets.chomp
 
