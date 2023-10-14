@@ -26,5 +26,26 @@
     "last_played_at": "2014-02-03",
     "publish_date": "2012-08-10",
     "archived": true
+  },
+  {
+    "id": 40,
+    "multiplayer": false,
+    "last_played_at": "2023-10-02",
+    "publish_date": "2023-09-20",
+    "archived": true
+  },
+  {
+    "id": 17,
+    "multiplayer": false,
+    "last_played_at": "2023-10-03",
+    "publish_date": "2023-09-23",
+    "archived": true
+  },
+  {
+    "id": 48,
+    "multiplayer": false,
+    "last_played_at": "2023-02-03",
+    "publish_date": "2023-04-25",
+    "archived": true
   }
 ]

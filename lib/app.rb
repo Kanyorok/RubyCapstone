@@ -141,6 +141,12 @@ def list_books(inf)
   inf.list_book
 end
 
+def list_games(inf)
+  puts 'The games Data'
+  puts ''
+inf.list_games
+end
+
 def list_labels(inf)
   puts 'The labels Data'
   puts ''
@@ -179,7 +185,8 @@ ACTIONS = {
     handler: method(:list_music)
   },
   '6' => {
-    prompt: 'List all games'
+    prompt: 'List all games',
+    handler: method(:list_games)
   },
   '7' => {
     prompt: 'List all labels',
