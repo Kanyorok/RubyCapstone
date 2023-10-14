@@ -4,6 +4,7 @@
   - [🛠 Built With](#built-with)
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
+    - [Video Presentation](#live-demo-)
 - [💻 Getting Started](#getting-started)
   - [Setup](#setup)
   - [Prerequisites](#prerequisites)
@@ -45,6 +46,11 @@ In this activity, the team prepared a Kanban board with a GitHub project. The jo
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## 🚀 Video Presentation <a name="live-demo"></a>
+
+- [Video Presentation](https://drive.google.com/file/d/1CqfbPEmbHz_vlwa4nVyy0dovAIHOmmlQ/view?usp=sharing)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
