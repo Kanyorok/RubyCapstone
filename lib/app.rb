@@ -38,7 +38,7 @@ def list_books(inf)
   inf.list_book
 end
 
-def list_games(inf)
+def list_game(inf)
   puts 'The games Data'
   puts ''
   inf.list_games
@@ -85,7 +85,7 @@ ACTIONS = {
   },
   '6' => {
     prompt: 'List all games',
-    handler: method(:list_games)
+    handler: method(:list_game)
   },
   '7' => {
     prompt: 'List all labels',

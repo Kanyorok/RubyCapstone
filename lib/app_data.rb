@@ -82,21 +82,6 @@ class Mainclass
     end
   end
 
-  def list_games
-    if @games.empty?
-      puts 'No new games recorded'
-    else
-      @games.each_with_index do |game, index|
-        puts "#{index})
-        Title: #{game.title},
-        Multiplayer: #{game.multiplayer},
-        Last Played: #{game.last_played_at},
-        Publish Date: #{game.publish_date},
-        Archived: #{game.archived}"
-      end
-    end
-  end
-
   def list_book
     if @existing_books.empty?
       puts 'No new books recorded'
