@@ -82,6 +82,16 @@ class Mainclass
     end
   end
 
+  def list_games
+    load_game
+    if @games.empty?
+      puts 'No new games recorded'
+    else
+      puts "#{index} ID: #{game.id}, Publish Date: #{game.publish_date},
+      Publisher: #{game.publisher}"
+    end
+  end
+
   def list_book
     if @existing_books.empty?
       puts 'No new books recorded'

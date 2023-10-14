@@ -38,6 +38,12 @@ def list_books(inf)
   inf.list_book
 end
 
+def list_games(inf)
+  puts 'The games Data'
+  puts ''
+inf.list_games
+end
+
 def list_labels(inf)
   puts 'The labels Data'
   puts ''
