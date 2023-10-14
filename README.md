@@ -68,7 +68,7 @@ In order to run this project you need:
 Clone this repository to your desired folder:
 
 ```sh
-  git clone https://github.com/maths29/RubyCapstone
+  git clone https://github.com/Kanyorok/RubyCapstone
   cd RubyCapstone
 ```
 

@@ -3,106 +3,16 @@ require 'date'
 
 Mainclass.new
 
-def created_label(inf)
-  print 'Do you want to add a a label to this book? (Y/N)'
-  want_label = gets.chomp.upcase
-
-  return unless want_label == 'Y'
-
-  print 'Label Title: '
-  label_title = gets.chomp
-
-  print 'Label Color: '
-  label_color = gets.chomp
-
-  inf.create_label(label_title, label_color)
-end
-
 def created_book(inf)
-  print 'Publisher: '
-  pub = gets.chomp
-
-  print 'Cover State: '
-  covrstate = gets.chomp
-
-  print 'Publish Date: '
-  pdate = gets.chomp.upcase
-
-  date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
-  until pdate.match?(date_pattern)
-    puts "\nPlease enter the date in the format: YYYY/MM/DD"
-    pdate = gets.chomp
-  end
-
-  # parse publish_date into Date object
-  publish_date = Date.parse(pdate)
-
-  print 'Archived (Y/N): '
-  archived_input = gets.chomp.upcase
-  archived = archived_input == 'Y'
-
-  created_label(inf)
-  inf.create_book(pub, covrstate, publish_date, archived)
-  puts 'Book added successfully'
-end
-
-def created_author(inf)
-  print 'Do you want to add the author of the game? (Y/N)'
-  want_author = gets.chomp.upcase
-
-  return unless want_author == 'Y'
-
-  print 'First name: '
-  author_fname = gets.chomp
-
-  print 'Last name: '
-  author_lname = gets.chomp
-
-  inf.create_author(author_fname, author_lname)
+  inf.create_book
 end
 
 def created_music(inf)
-  print 'Publish Date: '
-  publish_date = gets.chomp
-
-  # Input validation
-  date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
-  until publish_date.match?(date_pattern)
-    puts "\nPlease enter the date in the format: YYYY/MM/DD"
-    publish_date = gets.chomp
-  end
-
-  # parse publish_date into Date object
-  publish_date = Date.parse(publish_date)
-
-  print 'On Spotify (Y/N): '
-  on_spotify_input = gets.chomp.upcase
-  on_spotify = on_spotify_input == 'Y'
-
-  print 'Archived (Y/N): '
-  archived_input = gets.chomp.upcase
-  archived = archived_input == 'Y'
-
-  created_genre(inf)
-
-  inf.create_music(publish_date, on_spotify, archived)
-  puts 'Album created successfully'
+  inf.create_music
 end
 
 def created_game(inf)
   inf.add_game
-end
-
-def created_genre(inf)
-  print 'Do you want to add a genre to this song? (Y/N)'
-  want_genre = gets.chomp.upcase
-
-  return unless want_genre == 'Y'
-
-  print 'Genre name: '
-  genre_name = gets.chomp
-
-  inf.create_genre(genre_name)
 end
 
 def list_music(inf)
@@ -111,7 +21,7 @@ def list_music(inf)
   inf.list_music
 end
 
-def list_authors(inf) 
+def list_authors(inf)
   inf.list_all_authors
   puts ''
 end

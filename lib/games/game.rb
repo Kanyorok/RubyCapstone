@@ -1,7 +1,7 @@
 require_relative '../catalogue/catalogue'
 
 class Game < Catalogue
-    attr_accessor :title, :multiplayer, :last_played_at, :id, :author
+  attr_accessor :title, :multiplayer, :last_played_at, :id, :author
 
   def initialize(title, multiplayer, last_played_at, publish_date, archived)
     super(publish_date, archived)

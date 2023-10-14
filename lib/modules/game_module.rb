@@ -17,8 +17,8 @@ module GameModule
     # Input validation
     date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
     until play_date.match?(date_pattern)
-        puts "\nPlease enter the date in the format: YYYY/MM/DD"
-        play_date = gets.chomp
+      puts "\nPlease enter the date in the format: YYYY/MM/DD"
+      play_date = gets.chomp
     end
 
     # parse publish_date into Date object
@@ -31,8 +31,8 @@ module GameModule
     # Input validation
     date_pattern = %r{\A\d{4}/\d{2}/\d{2}\z}
     until publish_date.match?(date_pattern)
-        puts "\nPlease enter the date in the format: YYYY/MM/DD"
-        publish_date = gets.chomp
+      puts "\nPlease enter the date in the format: YYYY/MM/DD"
+      publish_date = gets.chomp
     end
 
     # parse publish_date into Date object
@@ -60,10 +60,10 @@ module GameModule
     if File.exist?(gamefile) && !File.empty?(gamefile)
       JSON.parse(File.read(gamefile)).map do |game_info|
         Game.new(game_info['title'],
-        game_info['multiplayer'],
-        game_info['last_played_at'],
-        game_info['publish_date'],
-        game_info['archived'])
+                 game_info['multiplayer'],
+                 game_info['last_played_at'],
+                 game_info['publish_date'],
+                 game_info['archived'])
       end
     else
       []
@@ -73,14 +73,14 @@ module GameModule
   def save_games
     gamefile = './lib/jsonfiles/game.json'.freeze
     game_data = @games.map do |game|
-        {
-					'title' => game.title.to_s,
-          'multiplayer' => game.multiplayer.to_s,
-					'last_played_at' => game.last_played_at.to_s,
-          'publish_date' => game.publish_date.to_s,
-					'archived' => game.archived.to_s
-        }
-      end
+      {
+        'title' => game.title.to_s,
+        'multiplayer' => game.multiplayer.to_s,
+        'last_played_at' => game.last_played_at.to_s,
+        'publish_date' => game.publish_date.to_s,
+        'archived' => game.archived.to_s
+      }
+    end
     # Save the combined data back to the JSON file
     File.write(gamefile, JSON.pretty_generate(game_data))
   end
