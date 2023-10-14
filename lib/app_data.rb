@@ -83,12 +83,17 @@ class Mainclass
   end
 
   def list_games
-    load_game
     if @games.empty?
       puts 'No new games recorded'
     else
-      puts "#{index} ID: #{game.id}, Publish Date: #{game.publish_date},
-      Publisher: #{game.publisher}"
+      @games.each_with_index do |game, index|
+        puts "#{index})
+        Title: #{game.title},
+        Multiplayer: #{game.multiplayer},
+        Last Played: #{game.last_played_at},
+        Publish Date: #{game.publish_date},
+        Archived: #{game.archived}"
+      end
     end
   end
 
